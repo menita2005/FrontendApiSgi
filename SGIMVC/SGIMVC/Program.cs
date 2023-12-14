@@ -1,7 +1,12 @@
+using SGIMVC.Repository;
+using SGIMVC.Repository.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IProductoRepository,ProductoRepository>();
 
 var app = builder.Build();
 
@@ -18,6 +23,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors(c=>c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllerRoute(
